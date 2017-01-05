@@ -1,0 +1,64 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.form {
+  margin-left: 30%;
+  text-align: right;
+}
+.table {
+  margin-left: 38%;
+  text-align: center;
+}
+
+.current-user {
+  float: right;
+}
+
+.quiz-list{
+  margin-left: 10px;
+  text-align: left;
+}
+
+.passed {
+  color: green;
+}
+
+.failed {
+  color: red;
+}
+
+.question {
+  text-align: left;
+  margin-left: 35%;
+}
+
+.timer {
+  text-align: right;
+  margin-right: 5%;
+}
+
+.left-spaces {
+  margin-left: 38%;
+}
