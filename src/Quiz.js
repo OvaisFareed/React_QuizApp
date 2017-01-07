@@ -1,7 +1,25 @@
 import React, {Component} from 'react';
 import Header from './Header';
 import Clock from './Clock';
-import { hashHistory } from 'react-router'
+import { hashHistory } from 'react-router';
+
+class QuizInfo extends Component {
+    render(){
+        return(
+            <div>
+                <p>
+                    This Quiz consist of 10 Multiple Choice Questions (MCQ's), some rules for attempting Quiz are as follows:
+                </p>
+                <br />
+                <ol>
+                    <li>Attempt all Question, all question carry equal marks(10 marks each)</li>
+                    <li>Select only one option for each question</li>
+                    <li>You have one minute to solve each question</li>
+                </ol>
+            </div>
+        );
+    }
+}
 
 class Quiz extends Component {
     constructor(props) {
@@ -9,18 +27,18 @@ class Quiz extends Component {
         this.Quizes = JSON.parse(localStorage.getItem('Quizes'));
         this.quiz = {};
         this.answers = [];
-        this.state = {
-            index: 0,
-            selected: '',
-            buttonText: "Next >",
-            min: 1,
-            sec: 5
-        };
         this.Quizes.forEach((quiz) => {
             if(quiz.name === props.params.quizName){
                 this.quiz = quiz;
             }
         });
+        this.state = {
+            index: 0,
+            selected: '',
+            buttonText: "Next >",
+            min: this.quiz.duration - 1,
+            sec: 59
+        };
         this.changeIndex = this.changeIndex.bind(this);
         this.checkValue = this.checkValue.bind(this);
         this.finishQuiz = this.finishQuiz.bind(this);
@@ -87,7 +105,7 @@ class Quiz extends Component {
             if(this.state.sec === 1 && this.state.min > 0) {
                 this.setState({
                     min: this.state.min - 1,
-                    sec: 5
+                    sec: 59
                 });
             }
             this.setState({
@@ -97,6 +115,31 @@ class Quiz extends Component {
     }
 
     render(){
+
+        let Comp = <QuizInfo />
+
+        //function StartButton(props){
+        //    function startQuiz(){
+        //        Comp =
+        //            <div>
+        //                <p className="timer"><b>Time Remains: </b> {this.state.min}:{this.state.sec}</p>
+        //                <h2>{this.quiz.title}</h2>
+        //                <div className="question">
+        //                    <h4>{this.quiz.questions[this.state.index].no}</h4>
+        //                    <p>{this.quiz.questions[this.state.index].text}</p>
+        //                    <ShowOptions options={this.quiz.questions[this.state.index].options}
+        //                                 selected={this.state.selected} onClick={this.checkValue}/>
+        //                    <br />
+        //                    <input data-field="back" type="button" value="< Back" onClick={this.changeIndex}/>
+        //                    <input data-field="next" className="left-spaces" type="button" value={this.state.buttonText} onClick={this.changeIndex}/>
+        //                </div>
+        //            </div>
+        //    }
+        //    return(
+        //        <button type={props.type} onClick={startQuiz}>{props.value}</button>
+        //    )
+        //}
+
 
         function ShowOptions(props){
             let options = props.options;
@@ -115,7 +158,7 @@ class Quiz extends Component {
                 </table>
             );
         }
-        let Comp, user = JSON.parse(localStorage.getItem('user'));
+        let user = JSON.parse(localStorage.getItem('user'));
 
         if(!user){
             Comp = <p>You have to <b>Login</b> first, click Login button to continue..</p>
@@ -129,21 +172,23 @@ class Quiz extends Component {
                     <input type="button" value="Show Result" onClick={this.finishQuiz} />
                 </div>
         }
-        else {
-            Comp =
-                <div>
-                    <p className="timer"><b>Time Remains: </b> {this.state.min}:{this.state.sec}</p>
-                    <h2>{this.quiz.title}</h2>
-                    <div className="question">
-                        <h4>{this.quiz.questions[this.state.index].no}</h4>
-                        <p>{this.quiz.questions[this.state.index].text}</p>
-                        <ShowOptions options={this.quiz.questions[this.state.index].options}
-                                     selected={this.state.selected} onClick={this.checkValue}/>
-                        <br />
-                        <input data-field="back" type="button" value="< Back" onClick={this.changeIndex}/>
-                        <input data-field="next" className="left-spaces" type="button" value={this.state.buttonText} onClick={this.changeIndex}/>
+        else{
+            {
+                Comp =
+                    <div>
+                        <p className="timer"><b>Time Remains: </b> {this.state.min}:{this.state.sec}</p>
+                        <h2>{this.quiz.title}</h2>
+                        <div className="question">
+                            <h4>{this.quiz.questions[this.state.index].no}</h4>
+                            <p>{this.quiz.questions[this.state.index].text}</p>
+                            <ShowOptions options={this.quiz.questions[this.state.index].options}
+                                         selected={this.state.selected} onClick={this.checkValue}/>
+                            <br />
+                            <input data-field="back" type="button" value="< Back" onClick={this.changeIndex}/>
+                            <input data-field="next" className="left-spaces" type="button" value={this.state.buttonText} onClick={this.changeIndex}/>
+                        </div>
                     </div>
-                </div>
+            }
         }
 
         return(
@@ -154,6 +199,7 @@ class Quiz extends Component {
         </div>
         );
     }
+//<StartButton type="button" value="Start Quiz" />
 }
 
 export default Quiz;

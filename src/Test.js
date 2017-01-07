@@ -196,6 +196,7 @@ class QuizList extends Component {
             {
                 name: 'HTML',
                 title: 'HTML5 - Quiz',
+                duration: 10,
                 questions: [
                     {
                         no: 'Question 1:',
@@ -275,6 +276,7 @@ class QuizList extends Component {
             {
                 name: 'CSS',
                 title: 'CSS3 - Quiz',
+                duration: 10,
                 questions: [
                     {
                         no: 'Question 1:',
@@ -344,6 +346,7 @@ class QuizList extends Component {
             {
                 name: 'Javascript',
                 title: 'Javascript - Quiz',
+                duration: 10,
                 questions: [
                     {
                         no: 'Question 1:',
@@ -412,7 +415,7 @@ class QuizList extends Component {
             }
         ];
 
-        //localStorage.setItem('Quizes', JSON.stringify(this.Quizes));
+        localStorage.setItem('Quizes', JSON.stringify(this.Quizes));
     }
 
     render() {
