@@ -26,7 +26,6 @@ class Main extends Component {
         //console.log('parent props: ', props);
         this.users = JSON.parse(localStorage.getItem('users')) || [];
         this.handleLoginClick = this.handleLoginClick.bind(this);
-        this.handleSigUpClick = this.handleSigUpClick.bind(this);
         this.handleLogoutClick = this.handleLogoutClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -45,6 +44,7 @@ class Main extends Component {
         e.preventDefault();
         let location = localStorage.getItem('location');
         if(goto === 'todo'){
+            location = location || 'test';
             hashHistory.push(location);
         }
         else {
@@ -69,11 +69,6 @@ class Main extends Component {
                 warning.style.color = 'orange';
             }
         }
-    }
-
-    handleSigUpClick(e) {
-        e.preventDefault();
-        console.log('this.state: ', this.state);
     }
 
     handleLogoutClick() {

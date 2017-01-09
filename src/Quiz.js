@@ -11,11 +11,10 @@ class QuizInfo extends Component {
                     This Quiz consist of 10 Multiple Choice Questions (MCQ's), some rules for attempting Quiz are as follows:
                 </p>
                 <br />
-                <ol>
-                    <li>Attempt all Question, all question carry equal marks(10 marks each)</li>
-                    <li>Select only one option for each question</li>
-                    <li>You have one minute to solve each question</li>
-                </ol>
+                <p>Attempt all Question, all question carry equal marks(10 marks each)
+                    <br />Select only one option for each question
+                    <br />You have one minute to solve each question
+                </p>
             </div>
         );
     }
@@ -37,11 +36,13 @@ class Quiz extends Component {
             selected: '',
             buttonText: "Next >",
             min: this.quiz.duration - 1,
-            sec: 59
+            sec: 59,
+            showQuestions: false
         };
         this.changeIndex = this.changeIndex.bind(this);
         this.checkValue = this.checkValue.bind(this);
         this.finishQuiz = this.finishQuiz.bind(this);
+        this.showQuiz = this.showQuiz.bind(this);
     }
 
     changeIndex(e){
@@ -71,6 +72,10 @@ class Quiz extends Component {
                 }
             }
         })
+    }
+
+    showQuiz(){
+        this.setState({showQuestions: true, min: this.quiz.duration - 1, sec: 59});
     }
 
     finishQuiz(){
@@ -118,29 +123,6 @@ class Quiz extends Component {
 
         let Comp = <QuizInfo />
 
-        //function StartButton(props){
-        //    function startQuiz(){
-        //        Comp =
-        //            <div>
-        //                <p className="timer"><b>Time Remains: </b> {this.state.min}:{this.state.sec}</p>
-        //                <h2>{this.quiz.title}</h2>
-        //                <div className="question">
-        //                    <h4>{this.quiz.questions[this.state.index].no}</h4>
-        //                    <p>{this.quiz.questions[this.state.index].text}</p>
-        //                    <ShowOptions options={this.quiz.questions[this.state.index].options}
-        //                                 selected={this.state.selected} onClick={this.checkValue}/>
-        //                    <br />
-        //                    <input data-field="back" type="button" value="< Back" onClick={this.changeIndex}/>
-        //                    <input data-field="next" className="left-spaces" type="button" value={this.state.buttonText} onClick={this.changeIndex}/>
-        //                </div>
-        //            </div>
-        //    }
-        //    return(
-        //        <button type={props.type} onClick={startQuiz}>{props.value}</button>
-        //    )
-        //}
-
-
         function ShowOptions(props){
             let options = props.options;
             return(
@@ -172,20 +154,32 @@ class Quiz extends Component {
                     <input type="button" value="Show Result" onClick={this.finishQuiz} />
                 </div>
         }
-        else{
-            {
+        else {
+            if(!this.state.showQuestions){
+               Comp =
+                   <div>
+                   <QuizInfo />
+                   <br />
+                   <button type="button" onClick={this.showQuiz}>Start Quiz</button>
+               </div>
+            }
+            else {
                 Comp =
                     <div>
                         <p className="timer"><b>Time Remains: </b> {this.state.min}:{this.state.sec}</p>
+
                         <h2>{this.quiz.title}</h2>
+
                         <div className="question">
                             <h4>{this.quiz.questions[this.state.index].no}</h4>
+
                             <p>{this.quiz.questions[this.state.index].text}</p>
                             <ShowOptions options={this.quiz.questions[this.state.index].options}
                                          selected={this.state.selected} onClick={this.checkValue}/>
                             <br />
                             <input data-field="back" type="button" value="< Back" onClick={this.changeIndex}/>
-                            <input data-field="next" className="left-spaces" type="button" value={this.state.buttonText} onClick={this.changeIndex}/>
+                            <input data-field="next" className="left-spaces" type="button" value={this.state.buttonText}
+                                   onClick={this.changeIndex}/>
                         </div>
                     </div>
             }
@@ -199,7 +193,6 @@ class Quiz extends Component {
         </div>
         );
     }
-//<StartButton type="button" value="Start Quiz" />
 }
 
 export default Quiz;
