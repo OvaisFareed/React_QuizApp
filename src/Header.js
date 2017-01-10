@@ -8,6 +8,7 @@ class Header extends Component {
     backToMain(){
         localStorage.removeItem('user');
         localStorage.removeItem('percentage');
+        localStorage.removeItem('location');
         hashHistory.push('/');
     }
 
@@ -28,17 +29,13 @@ class Header extends Component {
         }
 
         return (
-
             <div className="App-header">
                 {userStatus}
-                <br />
-                <img src={logo} className="App-logo" alt="logo" />
-                <h2> Welcome to Quiz App </h2>
             </div>
-
-        )
+        );
+            //<img src={logo} className="App-logo" alt="logo" />
+            //<h2> Quiz App </h2>
     }
-
 }
 
 export default Header;

@@ -420,9 +420,9 @@ class QuizList extends Component {
 
     render() {
         return (
-            <div className="quiz-list">
+            <div>
                 <h2>Select Quiz:</h2>
-                <ul>
+                <ul className="quiz-list">
                     <li><Link to={`/quiz/HTML`}>HTML</Link></li>
                     <li><Link to={`/quiz/CSS`}>CSS</Link></li>
                     <li><Link to={`/quiz/Javascript`}>Javascript</Link></li>

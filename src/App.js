@@ -12,7 +12,6 @@ class App extends Component {
                 <Header />
                 <br />
                 <Main />
-                <div id="asd"></div>
             </div>
         );
     }
@@ -119,6 +118,7 @@ class Main extends Component {
 
       return (
           <div>
+              <h2>Welcome to Quiz App</h2>
               <table className="form">
                   <tbody>
                   <tr>

@@ -8,10 +8,13 @@
 }
 
 .App-header {
-  background-color: #222;
+  /*background-color: #222;*/
+  background-image: url("../public/images/quiz.jpg");
+  background-repeat: no-repeat;
   height: 150px;
+  background-size: 50% 100%;
   padding: 20px;
-  color: white;
+  margin-left: 32%;
 }
 
 .App-intro {
@@ -37,8 +40,9 @@
 }
 
 .quiz-list{
-  margin-left: 10px;
-  text-align: left;
+  /*margin-left: 10px;*/
+  text-align: center;
+  list-style: none;
 }
 
 .passed {
