@@ -22,10 +22,10 @@ class Header extends Component {
         let userStatus = null;
 
         if (isLoggedIn) {
-            userStatus = <div className="current-user">Welcome, {this.props.user.username} <button onClick={this.backToMain}>Logout</button></div>
+            userStatus = <div className="current-user">Welcome, {this.props.user.username} <button className="btn btn-danger" onClick={this.backToMain}>Logout</button></div>
         }
-        else {
-            userStatus = <div className="current-user"><button className="current-user" onClick={this.gotoLogin}>Login</button></div>
+    else {
+            userStatus = <div className="current-user"><button className="btn btn-primary" onClick={this.gotoLogin}>Login</button></div>
         }
 
         return (
@@ -35,6 +35,11 @@ class Header extends Component {
         );
             //<img src={logo} className="App-logo" alt="logo" />
             //<h2> Quiz App </h2>
+        /*
+        // return pair of 3 values from user defined array
+       function returnPair(arr, index){
+            return arr.slice(index * 3, (index+1) * 3);
+        }*/
     }
 }
 

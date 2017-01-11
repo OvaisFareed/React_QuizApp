@@ -64,7 +64,7 @@ class Main extends Component {
                     ? hashHistory.push('test') : hashHistory.push(location);
             }
             else {
-                warning.innerHTML = '* You have to SignUp first.';
+                warning.innerHTML = '* You have to SignUp first';
                 warning.style.color = 'orange';
             }
         }
@@ -73,6 +73,11 @@ class Main extends Component {
     handleLogoutClick() {
         this.setState({isLoggedIn: false});
     }
+
+    showSignUpForm() {
+        this.setState({isLoggedIn: false});
+    }
+
     handleChange(event){
         this.setState({
             [event.target.dataset.field]: event.target.value
@@ -103,53 +108,76 @@ class Main extends Component {
     }
 
   render() {
+      let that = this, userExist = false, Comp, currentUser = JSON.parse(localStorage.getItem('user'));
+      if(currentUser) {
+          this.users.forEach(function (user) {
+              if (user.username === currentUser.username && user.password === currentUser.password) {
+                  userExist = true;
+              }
+          });
+      }
+      else {
+          if (!userExist) {
+              Comp =
+                  <td>
+                      <form onSubmit={this.handleLoginClick}>
+                          <fieldset>
+                              <legend>Login</legend>
+                              <label>Username: <input type="text" value={this.state.loginId} data-field="loginId"
+                                                      required
+                                                      onChange={this.handleChange}/></label><br /><br />
+                              <label>Password: <input type="password" value={this.state.loginPassword}
+                                                      data-field="loginPassword" required
+                                                      onChange={this.handleChange}/></label><br /><br />
+                              <LoginButton />
+                          </fieldset>
+                      </form>
+                  </td>
+          }
+          else {
+              Comp =
+                  <td>
+                      <form onSubmit={this.handleSubmit}>
+                          <fieldset className="Signup">
+                              <legend>SignUp</legend>
+                              <label>Username: <input type="text" value={this.state.username} data-field="username"
+                                                      required
+                                                      onChange={this.handleChange}/></label><br /><br />
+                              <label>Password: <input type="password" value={this.state.password} data-field="password"
+                                                      required
+                                                      onChange={this.handleChange}/></label><br /><br />
+                              <label>Email: <input type="email" value={this.state.email} data-field="email" required
+                                                   onChange={this.handleChange}/></label><br /><br />
+                              <label>Contact: <input type="text" value={this.state.contact} data-field="contact"
+                                                     required
+                                                     onChange={this.handleChange}/></label><br /><br />
+                              <SignupButton />
+                          </fieldset>
+                      </form>
+                  </td>
+          }
+      }
 
       function LoginButton(props) {
           return (
-              <button type="submit">Login</button>
+              <button className="btn btn-primary" type="submit">Login</button>
           );
       }
 
       function SignupButton(props) {
           return (
-              <button type="submit">Sign up</button>
+              <button className="btn btn-success" type="submit">Sign up</button>
           );
       }
 
       return (
           <div>
               <h2>Welcome to Quiz App</h2>
+              <br />
               <table className="form">
                   <tbody>
                   <tr>
-                      <td>
-                          <form onSubmit={this.handleLoginClick}>
-                              <fieldset className="Login">
-                                  <legend>Login</legend>
-                                  <label>Username: <input type="text" value={this.state.loginId} data-field="loginId" required
-                                                          onChange={this.handleChange}/></label><br /><br />
-                                  <label>Password: <input type="password" value={this.state.loginPassword} data-field="loginPassword" required
-                                                          onChange={this.handleChange}/></label><br /><br />
-                                  <LoginButton />
-                              </fieldset>
-                          </form>
-                      </td>
-                      <td>
-                          <form onSubmit={this.handleSubmit}>
-                              <fieldset className="Signup">
-                                  <legend>SignUp</legend>
-                                  <label>Username: <input type="text" value={this.state.username} data-field="username" required
-                                                          onChange={this.handleChange}/></label><br /><br />
-                                  <label>Password: <input type="password" value={this.state.password} data-field="password" required
-                                                          onChange={this.handleChange}/></label><br /><br />
-                                  <label>Email: <input type="email" value={this.state.email} data-field="email" required
-                                                       onChange={this.handleChange}/></label><br /><br />
-                                  <label>Contact: <input type="text" value={this.state.contact} data-field="contact" required
-                                                         onChange={this.handleChange}/></label><br /><br />
-                                  <SignupButton />
-                              </fieldset>
-                          </form>
-                      </td>
+                      {Comp}
                   </tr>
                   </tbody>
               </table>
