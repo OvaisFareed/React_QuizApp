@@ -1,6 +1,6 @@
 # React_QuizApp
 
-<img src="/src/logo.svg" width="150" height="150"/>
+<img src="/public/images/quiz.jpg" width="150" height="150"/>
 
 Mini Quiz App purely build on [React JS](https://facebook.github.io/react).
 
