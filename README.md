@@ -13,3 +13,5 @@ To run project, just type:
 > npm start
 
 that's all! :+1:
+
+[npm-badge]: https://img.shields.io/npm/v/react-router.svg?style=flat-square
