@@ -7,13 +7,15 @@ class QuizInfo extends Component {
     render(){
         return(
             <div>
+                <h2>Read these Instructions carefully</h2>
+                <br />
                 <p>
-                    This Quiz consist of 10 Multiple Choice Questions (MCQ's), some rules for attempting Quiz are as follows:
+                    This Quiz consist of <strong>10 Multiple Choice Questions (MCQ's)</strong>, some rules for attempting Quiz are as follows:
                 </p>
                 <br />
-                <p>Attempt all Question, all question carry equal marks(10 marks each)
-                    <br />Select only one option for each question
-                    <br />You have one minute to solve each question
+                <p>Attempt all Question, all question carry <strong>equal</strong> marks(10 marks each)
+                    <br />Select only <em>One</em> option for each question
+                    <br />You have <strong>one minute</strong> to solve each question
                 </p>
             </div>
         );
@@ -127,14 +129,14 @@ class Quiz extends Component {
             let options = props.options;
             return(
                 <table>
-                    <tbody>
+                    <tbody className="radio">
                     <tr>
-                        <td><input name="optionA" type="radio" value={options.a} checked={props.selected === options.a} onChange={props.onClick}/>a. {options.a}</td>
-                        <td><input name="optionB" type="radio" value={options.b} checked={props.selected === options.b} onChange={props.onClick}/>b. {options.b}</td>
+                        <td><label><input name="optionA" type="radio" value={options.a} checked={props.selected === options.a} onChange={props.onClick}/>a. {options.a}</label></td>
+                        <td><label><input name="optionB" type="radio" value={options.b} checked={props.selected === options.b} onChange={props.onClick}/>b. {options.b}</label></td>
                     </tr>
                     <tr>
-                        <td><input name="optionC" type="radio" value={options.c} checked={props.selected === options.c} onChange={props.onClick}/>c. {options.c}</td>
-                        <td><input name="optionD" type="radio" value={options.d} checked={props.selected === options.d} onChange={props.onClick}/>d. {options.d}</td>
+                        <td><label><input name="optionC" type="radio" value={options.c} checked={props.selected === options.c} onChange={props.onClick}/>c. {options.c}</label></td>
+                        <td><label><input name="optionD" type="radio" value={options.d} checked={props.selected === options.d} onChange={props.onClick}/>d. {options.d}</label></td>
                     </tr>
                     </tbody>
                 </table>
@@ -151,17 +153,17 @@ class Quiz extends Component {
                     <p className="timer"><b>Time Remains: </b> {this.state.min}:{this.state.sec}</p>
                     <h2>{this.quiz.title}</h2>
                     <h4 id="warning"></h4>
-                    <input type="button" value="Show Result" onClick={this.finishQuiz} />
+                    <input className="btn btn-warning" type="button" value="Show Result" onClick={this.finishQuiz} />
                 </div>
         }
         else {
             if(!this.state.showQuestions){
                Comp =
                    <div>
-                   <QuizInfo />
-                   <br />
-                   <button type="button" onClick={this.showQuiz}>Start Quiz</button>
-               </div>
+                        <QuizInfo />
+                        <br />
+                        <button className="btn btn-success" type="button" onClick={this.showQuiz}>Start Quiz!</button>
+                   </div>
             }
             else {
                 Comp =
@@ -177,8 +179,8 @@ class Quiz extends Component {
                             <ShowOptions options={this.quiz.questions[this.state.index].options}
                                          selected={this.state.selected} onClick={this.checkValue}/>
                             <br />
-                            <input data-field="back" type="button" value="< Back" onClick={this.changeIndex}/>
-                            <input data-field="next" className="left-spaces" type="button" value={this.state.buttonText}
+                            <input data-field="back" className="btn btn-default" type="button" value="< Back" onClick={this.changeIndex}/>
+                            <input data-field="next" className="left-spaces btn btn-info" type="button" value={this.state.buttonText}
                                    onClick={this.changeIndex}/>
                         </div>
                     </div>

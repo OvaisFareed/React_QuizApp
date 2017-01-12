@@ -35,8 +35,8 @@ class Result extends Component {
                 <h2>Result</h2>
                 <Content grade={this.grade} percentage={this.percentage} />
                 <br />
-                <input type="button" value={this.buttonText} onClick={this.retakeTest}/>
-                <input type="button" value="Back to Main" onClick={this.backToMain}/>
+                <input className="btn btn-info" type="button" value={this.buttonText} onClick={this.retakeTest}/>
+                <input className="btn btn-default" type="button" value="Back to Main" onClick={this.backToMain}/>
             </div>
         }
 

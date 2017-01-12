@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-size: larger;
 }
 
 .App-logo {
@@ -27,7 +28,8 @@
 }
 
 .form {
-  margin-left: 40%
+  margin-left: 40%;
+  text-align: left;
 }
 .table {
   margin-left: 38%;

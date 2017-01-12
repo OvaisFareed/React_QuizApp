@@ -13,7 +13,9 @@ class Header extends Component {
     }
 
     gotoLogin(){
-        localStorage.setItem('location', hashHistory.getCurrentLocation().pathname);
+        if(hashHistory.getCurrentLocation().pathname !== '/signUp') {
+            localStorage.setItem('location', hashHistory.getCurrentLocation().pathname);
+        }
         hashHistory.push('/');
     }
 
@@ -25,7 +27,7 @@ class Header extends Component {
             userStatus = <div className="current-user">Welcome, {this.props.user.username} <button className="btn btn-danger" onClick={this.backToMain}>Logout</button></div>
         }
     else {
-            userStatus = <div className="current-user"><button className="btn btn-primary" onClick={this.gotoLogin}>Login</button></div>
+            userStatus = <div className="current-user"><button className="btn btn-info" onClick={this.gotoLogin}>Login</button></div>
         }
 
         return (
