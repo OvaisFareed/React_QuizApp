@@ -49,7 +49,7 @@ class SignUp extends Component {
 
         function SignupButton(props) {
             return (
-                <button className="btn btn-info" type="submit">Sign up</button>
+                <button className="btn btn-info" type="submit">SIGN UP</button>
             );
         }
 

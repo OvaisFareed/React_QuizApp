@@ -45,6 +45,7 @@ class Quiz extends Component {
         this.checkValue = this.checkValue.bind(this);
         this.finishQuiz = this.finishQuiz.bind(this);
         this.showQuiz = this.showQuiz.bind(this);
+        this.preventPageReload = this.preventPageReload.bind(this);
     }
 
     changeIndex(e){
@@ -80,6 +81,12 @@ class Quiz extends Component {
         this.setState({showQuestions: true, min: this.quiz.duration - 1, sec: 59});
     }
 
+    preventPageReload(){
+        window.onbeforeunload = function() {
+            return "";
+        };
+    }
+
     finishQuiz(){
         let totalMarks = this.quiz.questions.length;
         let marksObt = this.answers.length;
@@ -98,6 +105,8 @@ class Quiz extends Component {
     }
 
     componentWillUnmount() {
+        console.log('unmount');
+        window.onbeforeunload = false;
         clearInterval(this.timerID);
     }
 
@@ -122,6 +131,24 @@ class Quiz extends Component {
     }
 
     render(){
+
+        function preventAction(){
+              window.onbeforeunload = function(e) {
+                return "";
+            };
+        }
+        if(window.location.href === "http://localhost:3000/#/quiz/HTML" || "http://localhost:3000/#/quiz/CSS" || "http://localhost:3000/#/quiz/Javascript")
+        {
+
+            preventAction();
+            window.onpopstate=function(e)
+            {
+                if(e.CLICK == 64){
+                    window.location.href="http://localhost:3000/#/quiz/HTML";
+                    window.location.reload();
+                }
+            }
+        }
 
         let Comp = <QuizInfo />
 
@@ -153,7 +180,7 @@ class Quiz extends Component {
                     <p className="timer"><b>Time Remains: </b> {this.state.min}:{this.state.sec}</p>
                     <h2>{this.quiz.title}</h2>
                     <h4 id="warning"></h4>
-                    <input className="btn btn-warning" type="button" value="Show Result" onClick={this.finishQuiz} />
+                    <input className="btn btn-danger" type="button" value="Show Result" onClick={this.finishQuiz} />
                 </div>
         }
         else {

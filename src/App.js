@@ -66,7 +66,7 @@ class Main extends Component {
 
       function LoginButton(props) {
           return (
-              <button className="btn btn-info" type="submit">Login</button>
+              <button className="btn btn-info" type="submit">LOGIN</button>
           );
       }
 
@@ -82,15 +82,12 @@ class Main extends Component {
                           <form onSubmit={this.handleLoginClick}>
                               <fieldset>
                                   <legend>Login</legend>
-                                  <label>Username: <input className="form-control" type="text" value={this.state.loginId}
-                                                          data-field="loginId"
-                                                          required
-                                                          onChange={this.handleChange}/></label><br /><br />
+                                  <label>Username: <input className="form-control" type="text" value={this.state.loginId} data-field="loginId"
+                                                          required onChange={this.handleChange}/></label><br /><br />
                                   <label>Password: <input className="form-control" type="password"
-                                                          value={this.state.loginPassword}
-                                                          data-field="loginPassword" required
-                                                          onChange={this.handleChange}/></label><br /><br />
-                                  <LoginButton />
+                                                          value={this.state.loginPassword} data-field="loginPassword"
+                                                          required onChange={this.handleChange}/></label><br /><br />
+                                  <LoginButton asd="asd"/>
                               </fieldset>
                           </form>
                       </td>

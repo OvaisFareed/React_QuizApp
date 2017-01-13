@@ -24,10 +24,10 @@ class Header extends Component {
         let userStatus = null;
 
         if (isLoggedIn) {
-            userStatus = <div className="current-user">Welcome, {this.props.user.username} <button className="btn btn-danger" onClick={this.backToMain}>Logout</button></div>
+            userStatus = <div className="current-user">Welcome, {this.props.user.username} <button className="btn btn-danger" onClick={this.backToMain}>LOGOUT</button></div>
         }
     else {
-            userStatus = <div className="current-user"><button className="btn btn-info" onClick={this.gotoLogin}>Login</button></div>
+            userStatus = <div className="current-user"><button className="btn btn-info" onClick={this.gotoLogin}>LOGIN</button></div>
         }
 
         return (
