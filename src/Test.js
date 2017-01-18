@@ -280,15 +280,15 @@ class QuizList extends Component {
                 questions: [
                     {
                         no: 'Question 1:',
-                        text: 'HTML stands for?',
+                        text: 'CSS stands for?',
                         options: {
-                            a:'', b:'', c:'', d:''
+                            a:'Custom Style Sheets', b:'Custom Sheet Styles', c:'Cascading Style Sheets', d:'Cascading Sheets Style'
                         }
                     },{
                         no: 'Question 2:',
-                        text: 'HTML stands for?',
+                        text: 'Which are two Basic terms used in CSS for append spaces between HTML elements?',
                         options: {
-                            a:'', b:'', c:'', d:''
+                            a:'width and height', b:'margin and padding', c:'linefeed and tabs', d:'none of these'
                         }
                     },{
                         no: 'Question 3:',

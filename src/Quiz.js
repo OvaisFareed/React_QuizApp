@@ -78,7 +78,10 @@ class Quiz extends Component {
     }
 
     showQuiz(){
-        this.setState({showQuestions: true, min: this.quiz.duration - 1, sec: 59});
+        this.setState({showQuestions: true,
+            //min: this.quiz.duration - 1,
+            min: 0,
+            sec: 59});
     }
 
     preventPageReload(){
@@ -137,17 +140,15 @@ class Quiz extends Component {
                 return "";
             };
         }
-        if(window.location.href === "http://localhost:3000/#/quiz/HTML" || "http://localhost:3000/#/quiz/CSS" || "http://localhost:3000/#/quiz/Javascript")
-        {
-
+        if(window.location.href === "http://localhost:3000/#/quiz/HTML" || "http://localhost:3000/#/quiz/CSS" || "http://localhost:3000/#/quiz/Javascript") {
             preventAction();
-            window.onpopstate=function(e)
-            {
-                if(e.CLICK == 64){
-                    window.location.href="http://localhost:3000/#/quiz/HTML";
-                    window.location.reload();
-                }
-            }
+            //window.onpopstate=function(e)
+            //{
+            //    if(e.CLICK == 64){
+            //        window.location.href="http://localhost:3000/#/quiz/HTML";
+            //        window.location.reload();
+            //    }
+            //}
         }
 
         let Comp = <QuizInfo />
