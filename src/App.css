@@ -56,14 +56,10 @@
 
 .question {
   text-align: left;
-  margin-left: 35%;
+  margin-left: 30%;
 }
 
 .timer {
   text-align: right;
   margin-right: 5%;
-}
-
-.left-spaces {
-  margin-left: 38%;
 }

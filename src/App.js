@@ -74,28 +74,19 @@ class Main extends Component {
           <div>
               <h2>Welcome to Quiz App</h2>
               <br />
-              <div className="form">
-              <table>
-                  <tbody>
-                  <tr>
-                      <td className="form-group">
-                          <form onSubmit={this.handleLoginClick}>
-                              <fieldset>
-                                  <legend>Login</legend>
-                                  <label>Username: <input className="form-control" type="text" value={this.state.loginId} data-field="loginId"
-                                                          required onChange={this.handleChange}/></label><br /><br />
-                                  <label>Password: <input className="form-control" type="password"
-                                                          value={this.state.loginPassword} data-field="loginPassword"
-                                                          required onChange={this.handleChange}/></label><br /><br />
-                                  <LoginButton asd="asd"/>
-                              </fieldset>
-                          </form>
-                      </td>
-                  </tr>
-                  </tbody>
-              </table>
-              <br /><span><Link to={`/signUp`}>Sign Up</Link></span>
-              <br /><span id="warning"></span>
+              <div>
+                  <form className="form-group" onSubmit={this.handleLoginClick}>
+                      <fieldset>
+                          <legend>Login</legend>
+                          <label>Username: <input className="form-control" type="text" value={this.state.loginId} data-field="loginId"
+                                                  required onChange={this.handleChange}/></label><br /><br />
+                          <label>Password: <input className="form-control" type="password" value={this.state.loginPassword} data-field="loginPassword"
+                                                  required onChange={this.handleChange}/></label><br /><br />
+                          <LoginButton asd="asd"/>
+                      </fieldset>
+                  </form>
+                  <span><Link to={`/signUp`}>Sign Up</Link></span>
+                  <br /><span id="warning"></span>
               </div>
           </div>
       );

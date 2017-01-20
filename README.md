@@ -4,7 +4,7 @@
 <img src="/public/images/github-logo1.jpg" width="150" height="150"/>
 <img src="/public/images/react-bootstrap.png" width="150" height="150"/>
 
-Mini Quiz App build on [React JS](https://facebook.github.io/react) styled by [React Bootstrap](https://react-bootstrap.github.io/).
+Mini Quiz App build on [React JS](https://facebook.github.io/react) styled by [React Bootstrap](https://react-bootstrap.github.io/), you can see the Demo [here](http://importer-width-76510.netlify.com/#/).
 
 ## Prerequisite
 clone or download project, open it in your **IDE** and type:

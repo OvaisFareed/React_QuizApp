@@ -58,37 +58,28 @@ class SignUp extends Component {
                 <Header />
                 <br />
                 <div>
-                    <h2>Welcome to Quiz App</h2>
-                    <br />
-                    <table className="form">
-                        <tbody>
-                        <tr>
-                            <td className="form-group">
-                                <form onSubmit={this.handleSubmit}>
-                                    <fieldset className="Signup">
-                                        <legend>SignUp</legend>
-                                        <label>Username: <input className="form-control" className="form-control" type="text" value={this.state.username}
-                                                                data-field="username"
-                                                                required
-                                                                onChange={this.handleChange}/></label><br /><br />
-                                        <label>Password: <input className="form-control" type="password" value={this.state.password}
-                                                                data-field="password"
-                                                                required
-                                                                onChange={this.handleChange}/></label><br /><br />
-                                        <label>Email: <input className="form-control" type="email" value={this.state.email}
-                                                             data-field="email" required
-                                                             onChange={this.handleChange}/></label><br /><br />
-                                        <label>Contact: <input className="form-control" type="text" value={this.state.contact}
-                                                               data-field="contact"
-                                                               required
-                                                               onChange={this.handleChange}/></label><br /><br />
-                                        <SignupButton />
-                                    </fieldset>
-                                </form>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <h2>Welcome to Quiz App</h2><br />
+                    <form className="form-group" onSubmit={this.handleSubmit}>
+                        <fieldset>
+                            <legend>SignUp</legend>
+                            <label>Username: <input className="form-control" className="form-control" type="text" value={this.state.username}
+                                                    data-field="username"
+                                                    required
+                                                    onChange={this.handleChange}/></label><br /><br />
+                            <label>Password: <input className="form-control" type="password" value={this.state.password}
+                                                    data-field="password"
+                                                    required
+                                                    onChange={this.handleChange}/></label><br /><br />
+                            <label>Email: <input className="form-control" type="email" value={this.state.email}
+                                                 data-field="email" required
+                                                 onChange={this.handleChange}/></label><br /><br />
+                            <label>Contact: <input className="form-control" type="text" value={this.state.contact}
+                                                   data-field="contact"
+                                                   required
+                                                   onChange={this.handleChange}/></label><br /><br />
+                            <SignupButton />
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         );

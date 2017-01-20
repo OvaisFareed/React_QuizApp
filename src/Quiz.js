@@ -6,17 +6,21 @@ import { hashHistory } from 'react-router';
 class QuizInfo extends Component {
     render(){
         return(
-            <div>
+            <div className="col-md-12">
                 <h2>Read these Instructions carefully</h2>
                 <br />
-                <p>
-                    This Quiz consist of <strong>10 Multiple Choice Questions (MCQ's)</strong>, some rules for attempting Quiz are as follows:
-                </p>
+                <div className="row">
+                    <p>
+                        This Quiz consist of <strong>10 Multiple Choice Questions (MCQ's)</strong>, some rules for attempting Quiz are as follows:
+                    </p>
+                </div>
                 <br />
-                <p>Attempt all Question, all question carry <strong>equal</strong> marks(10 marks each)
-                    <br />Select only <em>One</em> option for each question
-                    <br />You have <strong>one minute</strong> to solve each question
-                </p>
+                <div className="row">
+                    <p>Attempt all Question, all question carry <strong>equal</strong> marks(10 marks each)
+                        <br />Select only <em>One</em> option for each question
+                        <br />You have <strong>one minute</strong> to solve each question
+                    </p>
+                </div>
             </div>
         );
     }
@@ -45,7 +49,6 @@ class Quiz extends Component {
         this.checkValue = this.checkValue.bind(this);
         this.finishQuiz = this.finishQuiz.bind(this);
         this.showQuiz = this.showQuiz.bind(this);
-        this.preventPageReload = this.preventPageReload.bind(this);
     }
 
     changeIndex(e){
@@ -79,15 +82,9 @@ class Quiz extends Component {
 
     showQuiz(){
         this.setState({showQuestions: true,
-            //min: this.quiz.duration - 1,
-            min: 0,
+            min: this.quiz.duration - 1,
+            //min: 0,
             sec: 59});
-    }
-
-    preventPageReload(){
-        window.onbeforeunload = function() {
-            return "";
-        };
     }
 
     finishQuiz(){
@@ -108,7 +105,6 @@ class Quiz extends Component {
     }
 
     componentWillUnmount() {
-        console.log('unmount');
         window.onbeforeunload = false;
         clearInterval(this.timerID);
     }
@@ -156,20 +152,19 @@ class Quiz extends Component {
         function ShowOptions(props){
             let options = props.options;
             return(
-                <table>
-                    <tbody className="radio">
-                    <tr>
-                        <td><label><input name="optionA" type="radio" value={options.a} checked={props.selected === options.a} onChange={props.onClick}/>a. {options.a}</label></td>
-                        <td><label><input name="optionB" type="radio" value={options.b} checked={props.selected === options.b} onChange={props.onClick}/>b. {options.b}</label></td>
-                    </tr>
-                    <tr>
-                        <td><label><input name="optionC" type="radio" value={options.c} checked={props.selected === options.c} onChange={props.onClick}/>c. {options.c}</label></td>
-                        <td><label><input name="optionD" type="radio" value={options.d} checked={props.selected === options.d} onChange={props.onClick}/>d. {options.d}</label></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div className="radio">
+                    <div className="row">
+                        <div className="col-md-4"><label><input name="optionA" type="radio" value={options.a} checked={props.selected === options.a} onChange={props.onClick}/>a. {options.a}</label></div>
+                        <div className="col-md-4"><label><input name="optionB" type="radio" value={options.b} checked={props.selected === options.b} onChange={props.onClick}/>b. {options.b}</label></div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4"><label><input name="optionC" type="radio" value={options.c} checked={props.selected === options.c} onChange={props.onClick}/>c. {options.c}</label></div>
+                        <div className="col-md-4"><label><input name="optionD" type="radio" value={options.d} checked={props.selected === options.d} onChange={props.onClick}/>d. {options.d}</label></div>
+                    </div>
+                </div>
             );
         }
+
         let user = JSON.parse(localStorage.getItem('user'));
 
         if(!user){
@@ -195,24 +190,29 @@ class Quiz extends Component {
             }
             else {
                 Comp =
-                    <div>
+                    <div className="col-md-12">
                         <p className="timer"><b>Time Remains: </b> {this.state.min}:{this.state.sec}</p>
 
                         <h2>{this.quiz.title}</h2>
-
                         <div className="question">
-                            <h4>{this.quiz.questions[this.state.index].no}</h4>
-
-                            <p>{this.quiz.questions[this.state.index].text}</p>
-                            <ShowOptions options={this.quiz.questions[this.state.index].options}
-                                         selected={this.state.selected} onClick={this.checkValue}/>
+                            <div className="row">
+                                <h4>{this.quiz.questions[this.state.index].no}</h4>
+                                <br />
+                                <p>{this.quiz.questions[this.state.index].text}</p>
+                                <ShowOptions options={this.quiz.questions[this.state.index].options}
+                                             selected={this.state.selected} onClick={this.checkValue}/>
+                            </div>
                             <br />
-                            <input data-field="back" className="btn btn-default" type="button" value="< Back" onClick={this.changeIndex}/>
-                            <input data-field="next" className="left-spaces btn btn-info" type="button" value={this.state.buttonText}
-                                   onClick={this.changeIndex}/>
+                            <div className="row">
+                                <div className="col-md-3"><input data-field="back" className="btn btn-default" type="button" value="< Back" onClick={this.changeIndex}/></div>
+                                <div className="col-md-3"></div>
+                                <div className="col-md-3"><input data-field="next" className="btn btn-info" type="button" value={this.state.buttonText}
+                                       onClick={this.changeIndex}/></div>
+                            </div>
                         </div>
                     </div>
             }
+            //question
         }
 
         return(
