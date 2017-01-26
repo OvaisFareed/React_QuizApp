@@ -446,9 +446,9 @@ class QuizList extends Component {
                 <ul className="quiz-list">
                     <li><Link to={`/quiz/HTML`}>HTML</Link></li>
                     <li><Link to={`/quiz/CSS`}>CSS</Link></li>
-                    <li><Link to={`/quiz/Javascript`}>Javascript</Link></li>
                 </ul>
             </div>
         );
+        //<li><Link to={`/quiz/Javascript`}>Javascript</Link></li>
     }
 }

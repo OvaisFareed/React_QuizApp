@@ -26,6 +26,57 @@ class QuizInfo extends Component {
     }
 }
 
+class Timer extends Component {
+    constructor(props, contex){
+        super(props, contex);
+        //console.log('props: ', props);
+        this.state = {
+            minutes: props.minutes,
+            seconds: 10
+        };
+    }    // for Countdown timer
+
+    componentDidMount() {
+        this.timerID = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
+    tick() {
+        if(this.state.minutes === 0 && this.state.seconds === 0){
+            clearInterval(this.timerID);;
+            this.props.children(true);
+        }
+        else{
+            if(this.state.seconds === 1 && this.state.minutes > 0) {
+                this.setState({
+                    minutes: this.state.minutes - 1,
+                    seconds: 59
+                });
+            }
+            this.setState({
+                seconds: this.state.seconds - 1
+            });
+        }
+    }
+
+    render() {
+        const time = this.state;
+        if(!time.minutes && !time.seconds){
+            time.finish = true;
+            return this.props.children(time);
+        }
+        else{
+            return this.props.children(time);
+        }
+    }
+}
+
 class Quiz extends Component {
     constructor(props) {
         super(props);
@@ -41,14 +92,16 @@ class Quiz extends Component {
             index: 0,
             selected: '',
             buttonText: "Next >",
-            min: this.quiz.duration - 1,
-            sec: 59,
-            showQuestions: false
+            //minutes: this.quiz.duration - 1,
+            minutes: 0,
+            showQuestions: false,
+            timeEnds: false
         };
         this.changeIndex = this.changeIndex.bind(this);
         this.checkValue = this.checkValue.bind(this);
         this.finishQuiz = this.finishQuiz.bind(this);
         this.showQuiz = this.showQuiz.bind(this);
+        this.timesUp = this.timesUp.bind(this);
     }
 
     changeIndex(e){
@@ -63,7 +116,7 @@ class Quiz extends Component {
         }
         else {
             if(this.state.index > 0)
-            this.setState({index: this.state.index - 1});
+                this.setState({index: this.state.index - 1});
         }
     }
 
@@ -81,13 +134,15 @@ class Quiz extends Component {
     }
 
     showQuiz(){
-        this.setState({showQuestions: true,
-            min: this.quiz.duration - 1,
-            //min: 0,
-            sec: 59});
+        this.setState({showQuestions: true});
+    }
+
+    timesUp(){
+        this.setState({timeEnds: true});
     }
 
     finishQuiz(){
+        console.log('in');
         let totalMarks = this.quiz.questions.length;
         let marksObt = this.answers.length;
         let per = (marksObt / totalMarks) * 100;
@@ -97,42 +152,42 @@ class Quiz extends Component {
 
     // for Countdown timer
 
-    componentDidMount() {
-        this.timerID = setInterval(
-            () => this.tick(),
-            1000
-        );
-    }
-
-    componentWillUnmount() {
-        window.onbeforeunload = false;
-        clearInterval(this.timerID);
-    }
-
-    tick() {
-        if(this.state.min === 0 && this.state.sec === 0){
-            clearInterval(this.timerID);
-            let warning  = document.getElementById('warning');
-            warning.innerHTML = 'Times up..';
-            warning.style.color = 'red';
-        }
-        else{
-            if(this.state.sec === 1 && this.state.min > 0) {
-                this.setState({
-                    min: this.state.min - 1,
-                    sec: 59
-                });
-            }
-            this.setState({
-                sec: this.state.sec - 1
-            });
-        }
-    }
+    //componentDidMount() {
+    //    this.timerID = setInterval(
+    //        () => this.tick(),
+    //        1000
+    //    );
+    //}
+    //
+    //componentWillUnmount() {
+    //    window.onbeforeunload = false;
+    //    clearInterval(this.timerID);
+    //}
+    //
+    //tick() {
+    //    if(this.state.minutes === 0 && this.state.seconds === 0){
+    //        clearInterval(this.timerID);
+    //        let warning  = document.getElementById('warning');
+    //        warning.innerHTML = 'Times up..';
+    //        warning.style.color = 'red';
+    //    }
+    //    else{
+    //        if(this.state.seconds === 1 && this.state.minutes > 0) {
+    //            this.setState({
+    //                minutes: this.state.minutes - 1,
+    //                seconds: 59
+    //            });
+    //        }
+    //        this.setState({
+    //            seconds: this.state.seconds - 1
+    //        });
+    //    }
+    //}
 
     render(){
 
         function preventAction(){
-              window.onbeforeunload = function(e) {
+            window.onbeforeunload = function(e) {
                 return "";
             };
         }
@@ -147,7 +202,8 @@ class Quiz extends Component {
             //}
         }
 
-        let Comp = <QuizInfo />
+        let Comp = <QuizInfo /> || <Timer />
+
 
         function ShowOptions(props){
             let options = props.options;
@@ -170,57 +226,74 @@ class Quiz extends Component {
         if(!user){
             Comp = <p>You have to <b>Login</b> first, click Login button to continue..</p>
         }
-        else if(!this.state.min && !this.state.sec){
-            Comp =
-                <div>
-                    <p className="timer"><b>Time Remains: </b> {this.state.min}:{this.state.sec}</p>
-                    <h2>{this.quiz.title}</h2>
-                    <h4 id="warning"></h4>
-                    <input className="btn btn-danger" type="button" value="Show Result" onClick={this.finishQuiz} />
-                </div>
-        }
         else {
             if(!this.state.showQuestions){
-               Comp =
-                   <div>
+                Comp =
+                    <div>
                         <QuizInfo />
                         <br />
                         <button className="btn btn-success" type="button" onClick={this.showQuiz}>Start Quiz!</button>
-                   </div>
+                    </div>
             }
+            else if(this.state.timeEnds) {
+                Comp =
+                    <div><Timer minutes={this.state.minutes}>{(time) => {
+                        return <p className="timer"><b>Time Remains: </b> {time.minutes}:{time.seconds}</p>
+                    }}
+                    </Timer>
+                        <h2>{this.quiz.title}</h2>
+                        <h4 className="failed">Times up..</h4>
+                        <input className="btn btn-danger" type="button" value="Show Result" onClick={this.finishQuiz}/>
+                    </div>
+            }
+
             else {
                 Comp =
                     <div className="col-md-12">
-                        <p className="timer"><b>Time Remains: </b> {this.state.min}:{this.state.sec}</p>
+                        <Timer minutes={this.state.minutes}>{(time) => {
+                            if (time.finish) {
+                                this.timesUp();
+                                return <div></div>;
+                            }
+                            else {
+                                return <p className="timer"><b>Time Remains: </b> {time.minutes}:{time.seconds}</p>
+                            }
+                        }}
+                        </Timer>
 
                         <h2>{this.quiz.title}</h2>
+
                         <div className="question">
                             <div className="row">
                                 <h4>{this.quiz.questions[this.state.index].no}</h4>
                                 <br />
+
                                 <p>{this.quiz.questions[this.state.index].text}</p>
                                 <ShowOptions options={this.quiz.questions[this.state.index].options}
                                              selected={this.state.selected} onClick={this.checkValue}/>
                             </div>
                             <br />
+
                             <div className="row">
-                                <div className="col-md-3"><input data-field="back" className="btn btn-default" type="button" value="< Back" onClick={this.changeIndex}/></div>
+                                <div className="col-md-3"><input data-field="back" className="btn btn-default"
+                                                                 type="button" value="< Back"
+                                                                 onClick={this.changeIndex}/></div>
                                 <div className="col-md-3"></div>
-                                <div className="col-md-3"><input data-field="next" className="btn btn-info" type="button" value={this.state.buttonText}
-                                       onClick={this.changeIndex}/></div>
+                                <div className="col-md-3"><input data-field="next" className="btn btn-info"
+                                                                 type="button" value={this.state.buttonText}
+                                                                 onClick={this.changeIndex}/></div>
                             </div>
                         </div>
                     </div>
             }
-            //question
         }
 
         return(
-        <div className="App">
-            <Header user={user} />
-            <br />
-            {Comp}
-        </div>
+            <div className="App">
+                <Header user={user} />
+                <br />
+                {Comp}
+            </div>
         );
     }
 }
