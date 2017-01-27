@@ -32,9 +32,11 @@ class Timer extends Component {
         //console.log('props: ', props);
         this.state = {
             minutes: props.minutes,
-            seconds: 10
+            seconds: 59
         };
-    }    // for Countdown timer
+    }
+
+    // for Countdown timer
 
     componentDidMount() {
         this.timerID = setInterval(
@@ -49,8 +51,7 @@ class Timer extends Component {
 
     tick() {
         if(this.state.minutes === 0 && this.state.seconds === 0){
-            clearInterval(this.timerID);;
-            this.props.children(true);
+            clearInterval(this.timerID);
         }
         else{
             if(this.state.seconds === 1 && this.state.minutes > 0) {
@@ -92,8 +93,8 @@ class Quiz extends Component {
             index: 0,
             selected: '',
             buttonText: "Next >",
-            //minutes: this.quiz.duration - 1,
-            minutes: 0,
+            minutes: this.quiz.duration - 1,
+            //minutes: 0,
             showQuestions: false,
             timeEnds: false
         };
@@ -142,7 +143,6 @@ class Quiz extends Component {
     }
 
     finishQuiz(){
-        console.log('in');
         let totalMarks = this.quiz.questions.length;
         let marksObt = this.answers.length;
         let per = (marksObt / totalMarks) * 100;

@@ -34,26 +34,33 @@ class Main extends Component {
     handleLoginClick(e) {
         e.preventDefault();
         let location = localStorage.getItem('location');
-        let that = this, currentUser = {}, userExist = false;
+        let that = this, currentUser = {}, credentials = {username: false, password: false};
         let warning = document.getElementById('warning');
+        warning.style.color = 'red';
         that.users.forEach(function (user) {
-            if (user.username === that.state.loginId && user.password === that.state.loginPassword) {
-                userExist = true;
-                currentUser = user;
+            if (user.username === that.state.loginId) {
+                credentials.username = true;
+                if (user.password === that.state.loginPassword) {
+                    credentials.password = true;
+                    currentUser = user;
+                }
             }
         });
-        if (userExist) {
+        if (credentials.username && credentials.password) {
             warning.innerHTML = '';
             localStorage.setItem('user', JSON.stringify(currentUser));
             (hashHistory.getCurrentLocation().pathname === location || !location)
                 ? hashHistory.push('test') : hashHistory.push(location);
         }
-        else {
-            warning.innerHTML = '* You have to SignUp first, click on Sign Up';
-            warning.style.color = 'orange';
+        else if (!credentials.username) {
+            warning.innerHTML = "* Username doesn't exist, you have to Sign up first";
+            that.setState({loginId: ''});
+            that.setState({loginPassword: ''});
         }
-        that.setState({loginId: ''});
-        that.setState({loginPassword: ''});
+        else {
+            warning.innerHTML = '* Password is incorrect';
+            that.setState({loginPassword: ''});
+        }
     }
 
     handleChange(event) {
@@ -86,7 +93,8 @@ class Main extends Component {
                       </fieldset>
                   </form>
                   <span><Link to={`/signUp`}>Sign Up</Link></span>
-                  <br /><span id="warning"></span>
+                  <br /><br />
+                  <span id="warning"></span>
               </div>
           </div>
       );

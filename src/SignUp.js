@@ -29,21 +29,39 @@ class SignUp extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.users.push({
-            username: this.state.username,
-            password: this.state.password,
-            email: this.state.email,
-            contact: this.state.contact,
-            role: 'user'
-        });
-        localStorage.setItem('users', JSON.stringify(this.users));
-        localStorage.setItem('user', JSON.stringify(this.state));
-        console.log('this.users: ', this.users);
-        this.setState({username: ''});
-        this.setState({password: ''});
-        this.setState({email: ''});
-        this.setState({contact: ''});
-        hashHistory.push('test');
+        let that = this, credentials = {username: false, email: false};
+        let content = document.getElementById('warning');
+        content.style.color = 'red';
+        if(that.users.length) {
+            that.users.forEach(function (user) {
+                if (user.username === that.state.username) {
+                    credentials.username = true;
+                }
+                if (user.email === that.state.email) {
+                    credentials.email = true;
+                }
+            });
+        }
+        if (credentials.username) {
+            content.innerHTML = '* Username is already exist';
+            this.setState({username: ''})
+        }
+        if (credentials.email) {
+            content.innerHTML = (content.innerHTML) ? content.innerHTML + '<br />' +'* Email is already exist' : '* Email is already exist';
+            this.setState({email: ''})
+        }
+        else {
+            this.users.push({
+                username: this.state.username,
+                password: this.state.password,
+                email: this.state.email,
+                contact: this.state.contact,
+                role: 'user'
+            });
+            localStorage.setItem('users', JSON.stringify(this.users));
+            localStorage.setItem('user', JSON.stringify(this.state));
+            hashHistory.push('test');
+        }
     }
     render() {
 
@@ -80,6 +98,7 @@ class SignUp extends Component {
                             <SignupButton />
                         </fieldset>
                     </form>
+                    <br /><span id="warning"></span>
                 </div>
             </div>
         );
