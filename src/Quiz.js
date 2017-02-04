@@ -31,8 +31,10 @@ class Timer extends Component {
         super(props, contex);
         //console.log('props: ', props);
         this.state = {
-            minutes: props.minutes,
-            seconds: 59
+            //minutes: props.minutes,
+            minutes: 0,
+            //seconds: 59
+            seconds: 12
         };
     }
 
@@ -57,7 +59,8 @@ class Timer extends Component {
             if(this.state.seconds === 1 && this.state.minutes > 0) {
                 this.setState({
                     minutes: this.state.minutes - 1,
-                    seconds: 59
+                    //seconds: 59
+                    seconds: 10
                 });
             }
             this.setState({
@@ -150,40 +153,6 @@ class Quiz extends Component {
         hashHistory.push('result');
     }
 
-    // for Countdown timer
-
-    //componentDidMount() {
-    //    this.timerID = setInterval(
-    //        () => this.tick(),
-    //        1000
-    //    );
-    //}
-    //
-    //componentWillUnmount() {
-    //    window.onbeforeunload = false;
-    //    clearInterval(this.timerID);
-    //}
-    //
-    //tick() {
-    //    if(this.state.minutes === 0 && this.state.seconds === 0){
-    //        clearInterval(this.timerID);
-    //        let warning  = document.getElementById('warning');
-    //        warning.innerHTML = 'Times up..';
-    //        warning.style.color = 'red';
-    //    }
-    //    else{
-    //        if(this.state.seconds === 1 && this.state.minutes > 0) {
-    //            this.setState({
-    //                minutes: this.state.minutes - 1,
-    //                seconds: 59
-    //            });
-    //        }
-    //        this.setState({
-    //            seconds: this.state.seconds - 1
-    //        });
-    //    }
-    //}
-
     render(){
 
         function preventAction(){
@@ -237,12 +206,15 @@ class Quiz extends Component {
             }
             else if(this.state.timeEnds) {
                 Comp =
-                    <div><Timer minutes={this.state.minutes}>{(time) => {
-                        return <p className="timer"><b>Time Remains: </b> {time.minutes}:{time.seconds}</p>
-                    }}
-                    </Timer>
+                    <div>
                         <h2>{this.quiz.title}</h2>
-                        <h4 className="failed">Times up..</h4>
+                        <Timer minutes={this.state.minutes}>{(time) => {
+                            return <p className="timer"><b>Time Remains: </b> 0{time.minutes}:0{time.seconds}</p>
+                        }}
+                        </Timer>
+                        <br /><br />
+                        <h3 className="failed">Times Up..</h3>
+                        <br /><br />
                         <input className="btn btn-danger" type="button" value="Show Result" onClick={this.finishQuiz}/>
                     </div>
             }
@@ -250,19 +222,31 @@ class Quiz extends Component {
             else {
                 Comp =
                     <div className="col-md-12">
+                        <h2>{this.quiz.title}</h2>
+
                         <Timer minutes={this.state.minutes}>{(time) => {
                             if (time.finish) {
                                 this.timesUp();
                                 return <div></div>;
                             }
+                            if(time.minutes < 10 && time.seconds >= 10){
+                                return <p className="timer"><b>Time Remains: </b> 0{time.minutes}:{time.seconds}</p>
+                            }
+
+                            if(time.minutes >= 10 && time.seconds < 10){
+                                return <p className="timer"><b>Time Remains: </b> {time.minutes}:0{time.seconds}</p>
+                            }
+
+                            if(time.minutes < 10 && time.seconds < 10){
+                                return <p className="timer"><b>Time Remains: </b> 0{time.minutes}:0{time.seconds}</p>
+                            }
+
                             else {
                                 return <p className="timer"><b>Time Remains: </b> {time.minutes}:{time.seconds}</p>
                             }
                         }}
                         </Timer>
-
-                        <h2>{this.quiz.title}</h2>
-
+                        <br /><br />
                         <div className="question">
                             <div className="row">
                                 <h4>{this.quiz.questions[this.state.index].no}</h4>

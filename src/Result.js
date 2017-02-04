@@ -31,13 +31,15 @@ class Result extends Component {
             Comp = <p>You have to <b>Login</b> first, click Login button to continue..</p>
         }
         else{
-            Comp = <div>
-                <h2>Result</h2>
-                <Content grade={this.grade} percentage={this.percentage} />
-                <br />
-                <input className="btn btn-info" type="button" value={this.buttonText} onClick={this.retakeTest}/>
-                <input className="btn btn-default" type="button" value="Back to Main" onClick={this.backToMain}/>
-            </div>
+            Comp =
+                <div>
+                    <h2>Result</h2>
+                    <br /><br />
+                    <Content grade={this.grade} percentage={this.percentage} />
+                    <br /><br />
+                    <input className="btn btn-info" type="button" value={this.buttonText} onClick={this.retakeTest}/>
+                    <input className="btn btn-default backBtn" type="button" value="Back to Main" onClick={this.backToMain}/>
+                </div>
         }
 
         function Content(props) {

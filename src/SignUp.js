@@ -32,6 +32,7 @@ class SignUp extends Component {
         let that = this, credentials = {username: false, email: false};
         let content = document.getElementById('warning');
         content.style.color = 'red';
+        content.innerHTML = '';
         if(that.users.length) {
             that.users.forEach(function (user) {
                 if (user.username === that.state.username) {
@@ -74,9 +75,8 @@ class SignUp extends Component {
         return (
             <div className="App">
                 <Header />
-                <br />
                 <div>
-                    <h2>Welcome to Quiz App</h2><br />
+                    <h2>Welcome to Quiz App</h2><br /><br />
                     <form className="form-group" onSubmit={this.handleSubmit}>
                         <fieldset>
                             <legend>SignUp</legend>

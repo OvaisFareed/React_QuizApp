@@ -6,10 +6,19 @@ import './App.css';
 class Header extends Component {
 
     backToMain(){
-        localStorage.removeItem('user');
-        localStorage.removeItem('percentage');
-        localStorage.removeItem('location');
-        hashHistory.push('/');
+        let wannaLogout = confirm('Are you sure want to Logout?');
+        if(wannaLogout){
+            localStorage.removeItem('user');
+            localStorage.removeItem('percentage');
+            localStorage.removeItem('location');
+            hashHistory.push('/');
+        }
+        else{
+            window.onbeforeunload = function(e) {
+                return "";
+            };
+        }
+
     }
 
     gotoLogin(){

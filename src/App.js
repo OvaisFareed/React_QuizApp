@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import ReactDOM from 'react-dom';
 import Header from './Header';
+//import AppFooter from './AppFooter';
 import './App.css';
 import { Router, Route, Link, hashHistory } from 'react-router'
 
@@ -10,10 +11,10 @@ class App extends Component {
         return (
             <div className="App">
                 <Header />
-                <br />
                 <Main />
             </div>
         );
+        //<AppFooter />
     }
 }
 
@@ -80,7 +81,7 @@ class Main extends Component {
       return (
           <div>
               <h2>Welcome to Quiz App</h2>
-              <br />
+              <br /><br />
               <div>
                   <form className="form-group" onSubmit={this.handleLoginClick}>
                       <fieldset>
