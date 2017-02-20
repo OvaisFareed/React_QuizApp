@@ -31,10 +31,10 @@ class Timer extends Component {
         super(props, contex);
         //console.log('props: ', props);
         this.state = {
-            //minutes: props.minutes,
-            minutes: 0,
-            //seconds: 59
-            seconds: 12
+            minutes: props.minutes,
+            //minutes: 0,
+            seconds: 59
+            //seconds: 12
         };
     }
 
@@ -59,8 +59,7 @@ class Timer extends Component {
             if(this.state.seconds === 1 && this.state.minutes > 0) {
                 this.setState({
                     minutes: this.state.minutes - 1,
-                    //seconds: 59
-                    seconds: 10
+                    seconds: 59
                 });
             }
             this.setState({
@@ -260,7 +259,7 @@ class Quiz extends Component {
 
                             <div className="row">
                                 <div className="col-md-3"><input data-field="back" className="btn btn-default"
-                                                                 type="button" value="< Back"
+                                                                 type="button" value="< Back" disabled={!this.state.index}
                                                                  onClick={this.changeIndex}/></div>
                                 <div className="col-md-3"></div>
                                 <div className="col-md-3"><input data-field="next" className="btn btn-info"
