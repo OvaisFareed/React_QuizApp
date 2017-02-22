@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import ReactDOM from 'react-dom';
 import Header from './Header';
-//import AppFooter from './AppFooter';
+import Footer from './Footer';
 import './App.css';
 import { Router, Route, Link, hashHistory } from 'react-router'
 
@@ -12,9 +12,9 @@ class App extends Component {
             <div className="App">
                 <Header />
                 <Main />
+                <Footer />
             </div>
         );
-        //<AppFooter />
     }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from  'react';
 import Header from  './Header';
+import Footer from './Footer';
 import { Link, hashHistory } from  'react-router'
 
 class Test extends Component {
@@ -17,6 +18,7 @@ class Test extends Component {
                 <Header user={user} />
                 <br />
                 {Comp}
+                <Footer />
             </div>
         );
     }

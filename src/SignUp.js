@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import ReactDOM from 'react-dom';
 import Header from './Header';
+import Footer from './Footer';
 import './App.css';
 import { Router, Route, hashHistory } from 'react-router'
 
@@ -100,6 +101,7 @@ class SignUp extends Component {
                     </form>
                     <br /><span id="warning"></span>
                 </div>
+                <Footer />
             </div>
         );
     }

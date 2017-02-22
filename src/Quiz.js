@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Header from './Header';
 import Clock from './Clock';
+import Footer from './Footer';
 import { hashHistory } from 'react-router';
 
 class QuizInfo extends Component {
@@ -276,6 +277,7 @@ class Quiz extends Component {
                 <Header user={user} />
                 <br />
                 {Comp}
+                <Footer />
             </div>
         );
     }
